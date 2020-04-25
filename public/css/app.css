@@ -4518,7 +4518,7 @@ input[type=button].btn-block {
   display: block;
 }
 
-.navbar {
+/* .navbar {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -4530,7 +4530,7 @@ input[type=button].btn-block {
 .navbar .container,
 .navbar .container-fluid,
 .navbar .container-sm,
-.navbar .container-md,
+.navbar .container-md,.navbar
 .navbar .container-lg,
 .navbar .container-xl {
   display: flex;
@@ -4954,7 +4954,7 @@ input[type=button].btn-block {
 .navbar-dark .navbar-text a:hover,
 .navbar-dark .navbar-text a:focus {
   color: #fff;
-}
+} */
 
 .card {
   position: relative;

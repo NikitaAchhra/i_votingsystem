@@ -54,7 +54,14 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('google')->stateless()->user();
 
-        return view('home')->with('users',$user);
         
+        if (preg_match('/@ves.ac.in$/', $user->email, $matches)) {
+            
+            return view('home')->with('users',$user);
+        }
+
+        return view('layouts/index');
+    
+ 
     }
 }
