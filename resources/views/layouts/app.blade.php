@@ -33,19 +33,40 @@
                 <a class="navbar-brand" href="#">I VOTE</a>
             </div>
             <ul class="nav navbar-nav" id="navbar">
-                <li><a href="#">Home</a></li>
+            {{-- <li><a href="#">Home</a></li> --}}
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Create Profile</a></li>
-                <li><a href="#">Edit Profile</a></li>
+                <li><a href="#">Class Election</a></li>
+                <li><a href="#">College Election</a></li>
+            <li><a href="/user/{{$user1->user_id}}/edit">Complete/Edit Profile</a></li>
+            
+                <li><a href="/user/show">View Profile</a></li>
             </ul>
-            <!-- <button class="btn btn-danger navbar-btn">Button</button> -->
         </div>
     </nav>
     
     <main style="display:block" class="py-4">
-        @yield('content')
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Dashboard</div>
+                        
+                        <div class="card-body">
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+                            
+                            You are logged in as {{$user1->user_email}}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     
 </body>

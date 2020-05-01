@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     //
+    protected $primaryKey = 'dept_id';
     public function class()
     {
         return $this->hasMany('App/Division');

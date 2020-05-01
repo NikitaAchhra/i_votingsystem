@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class NomCollege extends Model
 {
     //
+    protected $primaryKey = 'nomcollege_id';
+
     public function position(){
         return $this->belongsTo('App/Position');
     }

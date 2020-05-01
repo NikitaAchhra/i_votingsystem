@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ElectClass extends Model
 {
     //
+    protected $primaryKey = 'eclass_id';
     public function nomination_class(){
        return $this->hasMany('App/NomClass'); 
     }

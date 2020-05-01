@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class NomClass extends Model
 {
     //
+    protected $primaryKey = 'nomclass_id';
     public function student()
     {
         return $this->hasMany('App/Student');

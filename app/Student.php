@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     //
+
+    public $table='students';
+    protected $primaryKey = 'stud_id';
+    protected $fillable = [
+        'class_id_fk', 'dept_id_fk',
+    ];
+
     public function division(){
         return $this->belongsTo('App/Division');
     }
