@@ -25,3 +25,5 @@ Route::get('login/google', 'Auth\LoginController@redirectToProvider')->name('log
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::resource('user','UserController');
+
+Route::resource('class','ClassElectionController');

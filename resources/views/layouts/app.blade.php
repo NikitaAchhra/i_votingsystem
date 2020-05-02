@@ -37,7 +37,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Class Election</a></li>
+                <li><a href="/class/{{$user1->user_id}}">Class Election</a></li>
                 <li><a href="#">College Election</a></li>
             <li><a href="/user/{{$user1->user_id}}/edit">Complete/Edit Profile</a></li>
             

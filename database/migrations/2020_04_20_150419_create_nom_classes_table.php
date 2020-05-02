@@ -19,7 +19,7 @@ class CreateNomClassesTable extends Migration
             $table->foreign('stud_id_fk')->references('stud_id')->on('students');
             $table->unsignedBigInteger('coun_id_fk');
             $table->foreign('coun_id_fk')->references('coun_id')->on('councils');
-            $table->integer('votes');
+            $table->integer('votes')->default(0);
             $table->timestamps();
         });
     }
