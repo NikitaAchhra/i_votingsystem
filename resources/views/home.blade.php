@@ -15,7 +15,7 @@
                         </div>
                     @endif
                     
-                    You are logged in! a {{$users->email}}
+                    You are logged in! a {{$user1->user_email}}
                     
                 </div>
             </div>

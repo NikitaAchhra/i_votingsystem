@@ -41,12 +41,12 @@
                 <li><a href="#">College Election</a></li>
             <li><a href="/user/{{$user1->user_id}}/edit">Complete/Edit Profile</a></li>
             
-                <li><a href="/user/show">View Profile</a></li>
+                <li><a href="/user/{{$user1->user_id}}">View Profile</a></li>
             </ul>
         </div>
     </nav>
     
-    <main style="display:block" class="py-4">
+    <main style="display:block" class="py-4"> 
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -66,7 +66,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        {{-- </div>
+    @include('inc.messages')
+    <div class="container">
+        @yield('content')
+    </div> --}} 
     </main>
     
 </body>

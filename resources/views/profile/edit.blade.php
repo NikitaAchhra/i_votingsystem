@@ -32,8 +32,8 @@
   
 
     
-{!! Form::open(['action' => ['UserController@update',$user2->user_id],'method' => 'POST']) !!}
-
+{!! Form::open(['action' => ['UserController@update',$user2->user_id],'method' => 'POST','enctype'=>'multipart/form-data']) !!}
+<div class="container">
  @csrf
 <div class="form-group">
   <label for="user_name">Name:</label>
@@ -78,7 +78,7 @@
 
 {{Form::hidden('_method','PUT')}}
 <input type="submit" class="btn btn-primary" value="Submit">
-
+</div>
 {!! Form::close() !!}
 
 </body>

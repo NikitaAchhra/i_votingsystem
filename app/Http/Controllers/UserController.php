@@ -99,7 +99,16 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user7=User::where('user_id',$id)->first();
+        if($user7->status==0){
+            $student=Student::where('user_id_fk',$user7->user_id)->first();
+            return view('profile/viewpage')->with('user7',$user7);
+        }
+        else{
+            $teacher=Teacher::where('user_id_fk'.$user->user_id)->first();
+            return view('profile/viewpage')->with('teacher',$teacher);
+        }
+
     }
 
     /**
@@ -132,15 +141,34 @@ class UserController extends Controller
             'user_gender'=>'required',
             'class_id_fk'=>'required',
             'dept_id_fk'=>'required',
+            'user_pic'=>'image|mimes:jpeg,png,jpg,gif|max:1999'
         ]);
+        //handle file upload
+        
+
         // $user3=User::where('user_email',$request->input('user_email'))->first();
         // $user3=User::find($id)->first();
         $user3=User::where('user_id',$id)->first();
         $user3->user_name=$request->input('user_name');
         // $user3->user_email=$request->input('user_email');
         $user3->user_gender=$request->input('user_gender');
-        $user3->user_pic=$request->input('user_pic');
-    
+        if($request->hasFile('user_pic')){
+            //File Name with Extension
+            $filenamewithext = $request->file('user_pic')->getClientOriginalName();
+            //Get File name
+            $filename = pathinfo($filenamewithext, PATHINFO_FILENAME);
+            //get just extension
+            $extension = $request->file('user_pic')->getClientOriginalExtension();
+            //filename to store
+            $fileNameToStore=$filename.'_'.time().'.'.$extension;
+            //upload image
+            $path = $request->file('user_pic')->storeAs('public/images',$fileNameToStore);
+        }
+        else{
+            $fileNameToStore = 'noimage.jpg';
+        }
+        $user3->user_pic=$fileNameToStore;
+        
         $user3->save();
         
 
@@ -191,7 +219,7 @@ class UserController extends Controller
         }
         // return view('profile/edit')->with('success','Profile Completed Successfully'); 
         // return view('/'); 
-        return view('profile/edit')->with('user2',$user4);
+        return view('profile/edit')->with('user2',$user4)->with('success','Profile Completed Successfully');
     }
     
 
@@ -203,6 +231,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }
