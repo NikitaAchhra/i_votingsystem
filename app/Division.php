@@ -17,6 +17,11 @@ class Division extends Model
         return $this->hasMany('App/Student');
     }
 
+    public function nom_class()
+    {
+        return $this->hasMany('App/NomClass');
+    }
+
     public function teacher(){
         return $this->hasOne('App/Teacher');
     }

@@ -57,7 +57,15 @@ class LoginController extends Controller
         $email=$user->email;
         $exist=User::where('user_email',$email)->first();
         if($exist){
-        
+
+            if($exist->status==2){
+
+                return view('admin/admin')->with('user1',$exist);
+
+            }
+
+                
+
             return view('layouts/app')->with('user1',$exist);
             
         }

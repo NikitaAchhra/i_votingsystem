@@ -13,6 +13,10 @@ class NomClass extends Model
         return $this->hasMany('App/Student');
     }
 
+    public function division(){
+        return $this->belongsTo('App/Division');
+    }
+
     public function council(){
         return $this->belongsTo('App/Council');
     }

@@ -34,6 +34,7 @@ class ClassElectionController extends Controller
         //
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -42,7 +43,8 @@ class ClassElectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+
     }
 
     /**
@@ -77,12 +79,36 @@ class ClassElectionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if($request->has('vote')){
+
+            $user=User::where('user_id',$request->input('user_id'))->first();
+            $student=Student::where('user_id_fk',$request->input('user_id'))->first();
+
+            if($student->v_cr == 0){
+                
+                $nomi=NomClass::where('nomclass_id',$id)->first();
+                $nomi->votes=$nomi->votes+1;
+                $nomi->save();
+                $student->v_cr=1;
+                $student->save();
+
+            }
+
+            
+            // if($nomi->coun_id_fk == 1){
+                
+            // }
+
+            return view('class/request')->with('user3',$user);
+        }
+
         $user=User::where('user_id',$id)->first();
         $student=Student::where('user_id_fk',$id)->first();
         $council=Council::where('coun_name',$request->input('coun_id_fk'))->first();
 
         $nomclass= new NomClass;
         $nomclass->stud_id_fk = $student->stud_id;
+        $nomclass->class_id_fk=$student->class_id_fk;
         $nomclass->coun_id_fk = $council->coun_id;
         $nomclass->save();
         $student->request=1;

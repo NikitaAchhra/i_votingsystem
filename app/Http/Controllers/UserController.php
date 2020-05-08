@@ -41,54 +41,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request,[
-        //     'user_name'=>'required',
-        //     'user_email'=>'required',
-        //     'user_gender'=>'required',
-        //     'class_id_fk'=>'required',
-        //     'dept_id_fk'=>'required',
-        // ]);
-
-        // $user = new User;
-        // $user->user_name=$request->input('user_name');
-        // $user->user_email=$request->input('user_email');
-        // $user->user_gender=$request->input('user_gender');
-        // $user->user_pic=$request->input('user_pic');
-
-        // if (preg_match('/^[0-9]{4}+.[a-z]+.[a-z]+@ves.ac.in$/', $request->input('user_email'), $matches)) {
-            
-        //     $user->status=0;
-        //  }
-        // else{
-        //     $user->status=1;
-        // }
-        // $user->save();
-
-        // // $user = new User;
-        // // $dept= new Department;
-        // // $div= new Division;
-
-        // $user =User::where('user_email',$request->input('user_email'))->first();
-        // $dept=Department::where('dept_name',$request->input('dept_id_fk'))->first();
-        // $div=Division::where('class_name',$request->input('class_id_fk'))->first();
-
-        
-        // if($user->status==0){
-        //     $stud = new Student;
-        //     $stud->user_id_fk = $user->user_id;
-        //     $stud->class_id_fk = $div->class_id;
-        //     $stud->dept_id_fk = $dept->dept_id;
-        //     $stud->save();
-        // }
-        // else{
-
-        //     $tea = new Teacher;
-        //     $tea->user_id_fk = $user->user_id;
-        //     $tea->class_id_fk = $div->class_id;
-        //     $tea->dept_id_fk = $dept->dept_id;
-        //     $tea->save();   
-        // }
-        // return view('profile/create')->with('success','Profile Created Successfully');   
+         // 
     }
 
     /**
@@ -127,6 +80,7 @@ class UserController extends Controller
     {
 
         $this->validate($request,[
+            'user_pic'=>'image|mimes:jpeg,png,jpg,gif|max:1999',
             'user_name'=>'required',
             // 'user_email'=>'required',
             'user_gender'=>'required',
@@ -139,7 +93,22 @@ class UserController extends Controller
         $user3->user_name=$request->input('user_name');
         // $user3->user_email=$request->input('user_email');
         $user3->user_gender=$request->input('user_gender');
-        $user3->user_pic=$request->input('user_pic');
+        if($request->hasFile('user_pic')){
+            //File Name with Extension
+            $filenamewithext = $request->file('user_pic')->getClientOriginalName();
+            //Get File name
+            $filename = pathinfo($filenamewithext, PATHINFO_FILENAME);
+            //get just extension
+            $extension = $request->file('user_pic')->getClientOriginalExtension();
+            //filename to store
+            $fileNameToStore=$filename.'_'.time().'.'.$extension;
+            //upload image
+            $path = $request->file('user_pic')->storeAs('public/images',$fileNameToStore);
+        }
+        else{
+            $fileNameToStore = 'noimage.jpg';
+        }
+        $user3->user_pic=$fileNameToStore;
     
         $user3->save();
         
