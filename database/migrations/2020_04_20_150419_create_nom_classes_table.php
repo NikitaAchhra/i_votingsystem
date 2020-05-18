@@ -17,6 +17,8 @@ class CreateNomClassesTable extends Migration
             $table->bigIncrements('nomclass_id');
             $table->unsignedBigInteger('stud_id_fk');
             $table->foreign('stud_id_fk')->references('stud_id')->on('students');
+            $table->unsignedBigInteger('class_id_fk');
+            $table->foreign('class_id_fk')->references('class_id')->on('divisions');
             $table->unsignedBigInteger('coun_id_fk');
             $table->foreign('coun_id_fk')->references('coun_id')->on('councils');
             $table->integer('votes')->default(0);

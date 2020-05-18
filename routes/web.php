@@ -27,3 +27,10 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback
 Route::resource('user','UserController');
 
 Route::resource('class','ClassElectionController');
+
+Route::get('request/{id}','RequestController@show_list');
+
+Route::resource('admin','AdminController');
+
+// Route::resource('teacher','TeacherController');
+Route::get('teacher/{id}','TeacherController@show_list');

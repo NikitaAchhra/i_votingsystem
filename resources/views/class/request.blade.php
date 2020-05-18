@@ -1,197 +1,219 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
+<html>
+	<head>
+			
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		  <meta charset="utf-8">
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+		<style>
+			.leftside, .rightside{
+				height:100vmin;
+				width:100%;
+			}
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+			
+			.leftside{
+				background:rgba(149, 188, 224, 0.897);
+			}
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+      .b1, .b2{
+        margin: 40px;
+      }
+			
+			.rightside{
+				background:rgb(240, 145, 145);
+			}
+			
+			.centered {
+						  position: absolute;
+						  top: 50%;
+						  left: 50%;
+						  transform: translate(-50%, -50%);
+						  text-align: center;
+			}
+			
+			#myDIV2 .card {
+				margin-bottom: 12px;
+			}
 
-  
-</head>
-<style>
+      .card-header{
+        color:black;
+      }
 
-#myDIV1{
-  text-align: center;
-}
 
-.split {
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
-  margin-top: 80px;
-}
-/* Control the left side */
-.left {
-  left: 0;
-  background-color:burlywood;
-}
-#left1{
-  width: 30%;
-}
-#left2{
-  width: 70%;
-}
-/* Control the right side */
-.right {
-  right: 0;
-  background-color: lightpink;
-}
+			body {
+			  font-family: Arial;
+			  color: white;
+			}
+			
+			
+		</style>
+	</head>
+	
+	<body>
+		
+				<nav class="navbar sticky-top navbar-expand-sm bg-dark navbar-dark">
+					<a class="navbar-brand" href="#">I VOTE</a>
+					<ul class="navbar-nav ">
+						
+						<li class="nav-item">
+						  <a class="nav-link" href="/user/{{$user3->user_id}}/edit">Complete/Edit Profile</a>
+						</li>
+						<li class="nav-item">
+						  <a  class="nav-link" href="/user/{{$user3->user_id}}">View Profile</a>
+						</li>
+						@if($user3->status==1)
+						<li class="nav-item"  id="3">
+							<a  class="nav-link" href="/user/show">Generate Results</a>
+						</li>
+						<li class="nav-item"  id="4">
+							<a  class="nav-link" href="/teacher/{{$user3->user_id}}">Pending Request</a>
+						</li>
+						@else
+						<li id="1" class="nav-item" >
+							<a   class="nav-link" href="/class/{{$user3->user_id}}">Class Election</a>
+						</li>
+						<li  id="2" class="nav-item" >
+							<a class="nav-link" href="#">College Election</a>
+						</li>
+            		@endif
+					</ul>
+				</nav>
+		
+		<div class='row no-gutters' >
+			
+			<div class='col no-gutters' >
+				<div class='leftside'>
+					<div class="centered">
+					  <button class ="b1" onclick="myFunction1()">Request</button>
+					  <button class ="b2" onclick="myFunction2()">Vote</button>
+					</div>
+				</div>
+			</div>
+			
+			<div class='col no-gutters'>
+				<div class='rightside'>
+				
+				<div class="centered">
+					<div id="myDIV1" style="display:none;">
+						{!! Form::open(['action' => ['ClassElectionController@update',$user3->user_id],'method' => 'POST']) !!}
 
-#myDIV2 #card {
-    margin-bottom: 12px;
-}
-
-/* If you want the content centered horizontally and vertically */
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-/* Style the image inside the centered container, if needed */
-.centered img {
-  width: 150px;
-  border-radius: 50%;
-}
-body {
-  font-family: Arial;
-  color: white;
-}
-.button:b3,b4,b5,b6,b7{
-    background-color: darkblue;
-    border: none;
-    color: white;
-    padding: 30px;
-    text-align: center;
-    text-decoration: none;
-    
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 50%;
-    
-}
-</style>
-
-<body>
-
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">I VOTE</a>
-            </div>
-            <ul class="nav navbar-nav" id="navbar">
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            <li><a href="/class/{{$user3->user_id}}">Class Election</a></li>
-                <li><a href="#">College Election</a></li>
-            <li><a href="/user/{{$user3->user_id}}/edit">Complete/Edit Profile</a></li>
-                <li><a href="/user/show">View Profile</a></li>
-            </ul>
-        </div>
-    </nav>
-  
-  <div class="split left" id="left1">
-    <div class="centered">
-      
-      <button class ="b1" onclick="myFunction1()">Request</button>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <button class ="b2" onclick="myFunction2()">Vote</button>
-    </div>
-  </div>
-  
-  <div class="split right" id="left2">
-    <div class="centered">
-      <div id="myDIV1" style="display:none;">
-        {!! Form::open(['action' => ['ClassElectionController@update',$user3->user_id],'method' => 'POST']) !!}
-
-        @csrf
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Select Council</label>
-            <select class="form-control" id="coun_id_fk" name='coun_id_fk'>
-                <option>Class Representative</option>
-                <option>Cultural Council</option>
-                <option>Music Council</option>
-                <option>Sort Council</option>
-                <option>Sports Council</option>
-            </select>
-        </div>
+							@csrf
+							<div class="form-group">
+								<label for="exampleFormControlSelect1">Select Council</label>
+								<select class="form-control" id="coun_id_fk" name='coun_id_fk'>
+									<option>Class Representative</option>
+									<option>Cultural Council</option>
+									<option>Music Council</option>
+									<option>Sort Council</option>
+									<option>Sports Council</option>
+								</select>
+							</div>
+							{{Form::hidden('_method','PUT')}}
+							<input type="submit" class="btn btn-primary" value="Submit">
           
-        {{Form::hidden('_method','PUT')}}
-        <input type="submit" class="btn btn-primary" value="Submit">
-          
-        {!! Form::close() !!}
-        
-    </div>
-    <div id="myDIV2" style="display:none;">
-      <div id='card' class="card" style="width:400px">
-        <div class="card-body">
-          <h4 style="color:black" class="card-title">Class Representative</h4>
-          <p class="card-text"></p>
-          <a href="google.com" class="btn btn-primary stretched-link">VOTE</a>
-        </div>
-      </div>
-      <div id='card' class="card" style="width:400px">
-        <div class="card-body">
-            <h4 style="color:black" class="card-title">Cultural Council</h4>
-          <p class="card-text"></p>
-          <a href="google.com" class="btn btn-primary stretched-link">VOTE</a>
-        </div>
-      </div>
-      <div id='card' class="card" style="width:400px">
-        <div class="card-body">
-          <h4 style="color:black" class="card-title">Music Council</h4>
-          <p class="card-text"></p>
-          <a href="google.com" class="btn btn-primary stretched-link">VOTE</a>
-        </div>
-      </div>
-      <div id='card' class="card" style="width:400px">
-        <div class="card-body">
-          <h4 style="color:black" class="card-title">Sort Council</h4>
-          <p class="card-text"></p>
-          <a href="google.com" class="btn btn-primary stretched-link">VOTE</a>
-        </div>
-      </div>
-      <div id='card' class="card" style="width:400px">
-        <div class="card-body">
-          <h4 style="color:black" class="card-title">Sports Council</h4>
-          <p class="card-text"></p>
-          <a href="google.com" class="btn btn-primary stretched-link">VOTE</a>
-        </div>
-      </div>
+						{!! Form::close() !!}
+				
+					</div>
+					
+              <div id="myDIV2" style="display:none;">
+                
+                <div class="card">
+                  <div class="card-header">
+                    Class Representative
+                  </div>
+                  <div class="card-body">
+                        
+		{!! Form::open(['action' =>['RequestController@show_list',$user3->user_id],'method' => 'GET']) !!}
+							{{-- {{Form::hidden('_method','PUT')}} --}}
+		<input type="submit" name='form1' class="btn btn-primary" value="Go Vote">
 
-  </div>
-    </div>
-  </div>
-  
-<script>
-  function myFunction1() {
-   document.getElementById("myDIV1").style.display = "block";
-   document.getElementById("myDIV2").style.display = "none";
-  
-}
-function myFunction2() {
-   document.getElementById("myDIV2").style.display = "block";
-   document.getElementById("myDIV1").style.display = "none";
-}
-</script>
+		{!! Form::close() !!}
+                  </div>
+                </div>
 
-</body>
+                <div class="card">
+                  <div class="card-header">
+                    Cultural Council
+                  </div>
+                  <div class="card-body">
+{!! Form::open(['action' =>['RequestController@show_list',$user3->user_id],'method' => 'GET']) !!}
+                    {{-- {{Form::hidden('_method','PUT')}} --}}
+<input type="submit" name='form2' class="btn btn-primary" value="Go Vote">
+
+{!! Form::close() !!}
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    Sort Council
+                  </div>
+                  <div class="card-body">
+{!! Form::open(['action' =>['RequestController@show_list',$user3->user_id],'method' => 'GET']) !!}
+                    {{-- {{Form::hidden('_method','PUT')}} --}}
+<input type="submit" name='form3' class="btn btn-primary" value="Go Vote">
+
+{!! Form::close() !!}
+                  </div>
+                </div>
+
+
+                <div class="card">
+                  <div class="card-header">
+                    Sports Council
+                  </div>
+                  <div class="card-body">
+{!! Form::open(['action' =>['RequestController@show_list',$user3->user_id],'method' => 'GET']) !!}
+                    {{-- {{Form::hidden('_method','PUT')}} --}}
+<input type="submit" name='form4' class="btn btn-primary" value="Go Vote">
+
+{!! Form::close() !!}
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    Music Council
+                  </div>
+                  <div class="card-body">
+{!! Form::open(['action' =>['RequestController@show_list',$user3->user_id],'method' => 'GET']) !!}
+                    {{-- {{Form::hidden('_method','PUT')}} --}}
+<input type="submit" name='form5' class="btn btn-primary" value="Go Vote">
+
+{!! Form::close() !!}
+                  </div>
+                </div>
+
+
+
+
+
+
+							</div>
+					
+					
+					
+				</div>
+				
+				</div>
+			</div>
+			
+		</div>
+		<script>
+				function myFunction1() {
+				   document.getElementById("myDIV1").style.display = "block";
+				   document.getElementById("myDIV2").style.display = "none";
+				  
+				}
+				function myFunction2() {
+				   document.getElementById("myDIV2").style.display = "block";
+				   document.getElementById("myDIV1").style.display = "none";
+				}
+		</script>
+	</body>
 </html>

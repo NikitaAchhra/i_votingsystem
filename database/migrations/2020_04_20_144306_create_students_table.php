@@ -22,11 +22,11 @@ class CreateStudentsTable extends Migration
             $table->unsignedBigInteger('dept_id_fk');
             $table->foreign('dept_id_fk')->references('dept_id')->on('departments');
             $table->integer('request')->default(0);
-            $table->integer('v_cr')->default(0);
-            $table->integer('v_cultural')->default(0);
-            $table->integer('v_sports')->default(0);
-            $table->integer('v_music')->default(0);
-            $table->integer('v_sort')->default(0);
+            $table->string('v_cr')->default("");
+            $table->string('v_cultural')->default("");
+            $table->string('v_sports')->default("");
+            $table->string('v_music')->default("");
+            $table->string('v_sort')->default("");
             $table->timestamps();
         });
     }

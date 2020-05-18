@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\User;
 use App\Student;
@@ -41,54 +42,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request,[
-        //     'user_name'=>'required',
-        //     'user_email'=>'required',
-        //     'user_gender'=>'required',
-        //     'class_id_fk'=>'required',
-        //     'dept_id_fk'=>'required',
-        // ]);
-
-        // $user = new User;
-        // $user->user_name=$request->input('user_name');
-        // $user->user_email=$request->input('user_email');
-        // $user->user_gender=$request->input('user_gender');
-        // $user->user_pic=$request->input('user_pic');
-
-        // if (preg_match('/^[0-9]{4}+.[a-z]+.[a-z]+@ves.ac.in$/', $request->input('user_email'), $matches)) {
-            
-        //     $user->status=0;
-        //  }
-        // else{
-        //     $user->status=1;
-        // }
-        // $user->save();
-
-        // // $user = new User;
-        // // $dept= new Department;
-        // // $div= new Division;
-
-        // $user =User::where('user_email',$request->input('user_email'))->first();
-        // $dept=Department::where('dept_name',$request->input('dept_id_fk'))->first();
-        // $div=Division::where('class_name',$request->input('class_id_fk'))->first();
-
-        
-        // if($user->status==0){
-        //     $stud = new Student;
-        //     $stud->user_id_fk = $user->user_id;
-        //     $stud->class_id_fk = $div->class_id;
-        //     $stud->dept_id_fk = $dept->dept_id;
-        //     $stud->save();
-        // }
-        // else{
-
-        //     $tea = new Teacher;
-        //     $tea->user_id_fk = $user->user_id;
-        //     $tea->class_id_fk = $div->class_id;
-        //     $tea->dept_id_fk = $dept->dept_id;
-        //     $tea->save();   
-        // }
-        // return view('profile/create')->with('success','Profile Created Successfully');   
+         // 
     }
 
     /**
@@ -99,16 +53,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user7=User::where('user_id',$id)->first();
-        if($user7->status==0){
-            $student=Student::where('user_id_fk',$user7->user_id)->first();
-            return view('profile/viewpage')->with('user7',$user7);
-        }
-        else{
-            $teacher=Teacher::where('user_id_fk'.$user->user_id)->first();
-            return view('profile/viewpage')->with('teacher',$teacher);
-        }
-
+        $userv=User::where('user_id',$id)->first();
+        $studentv=Student::where('user_id_fk',$userv->user_id)->first();
+        return view('profile/viewpage')->with('userv',$userv)->with('studentv',$studentv);
     }
 
     /**
@@ -136,16 +83,13 @@ class UserController extends Controller
     {
 
         $this->validate($request,[
+            'user_pic'=>'image|mimes:jpeg,png,jpg,gif|max:1999',
             'user_name'=>'required',
             // 'user_email'=>'required',
             'user_gender'=>'required',
             'class_id_fk'=>'required',
             'dept_id_fk'=>'required',
-            'user_pic'=>'image|mimes:jpeg,png,jpg,gif|max:1999'
         ]);
-        //handle file upload
-        
-
         // $user3=User::where('user_email',$request->input('user_email'))->first();
         // $user3=User::find($id)->first();
         $user3=User::where('user_id',$id)->first();
@@ -153,6 +97,12 @@ class UserController extends Controller
         // $user3->user_email=$request->input('user_email');
         $user3->user_gender=$request->input('user_gender');
         if($request->hasFile('user_pic')){
+            if($user3->user_pic !== 'noimage.jpg')
+            {
+                //Delete old image
+                Storage::delete('/storage/images/'.$user3->user_pic);
+
+            }
             //File Name with Extension
             $filenamewithext = $request->file('user_pic')->getClientOriginalName();
             //Get File name
@@ -168,7 +118,7 @@ class UserController extends Controller
             $fileNameToStore = 'noimage.jpg';
         }
         $user3->user_pic=$fileNameToStore;
-        
+    
         $user3->save();
         
 
@@ -219,7 +169,7 @@ class UserController extends Controller
         }
         // return view('profile/edit')->with('success','Profile Completed Successfully'); 
         // return view('/'); 
-        return view('profile/edit')->with('user2',$user4)->with('success','Profile Completed Successfully');
+        return view('profile/edit')->with('user2',$user4);
     }
     
 
@@ -231,6 +181,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        
+        //
     }
 }
+
+

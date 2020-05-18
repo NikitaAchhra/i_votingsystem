@@ -20,30 +20,42 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     
 </head>
 <body>
 
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">I VOTE</a>
-            </div>
-            <ul class="nav navbar-nav" id="navbar">
-            {{-- <li><a href="#">Home</a></li> --}}
-
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/class/{{$user1->user_id}}">Class Election</a></li>
-                <li><a href="#">College Election</a></li>
-            <li><a href="/user/{{$user1->user_id}}/edit">Complete/Edit Profile</a></li>
+    <nav class="navbar sticky-top navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">I VOTE</a>
+        <ul class="navbar-nav ">
             
-                <li><a href="/user/{{$user1->user_id}}">View Profile</a></li>
-            </ul>
-        </div>
+            <li class="nav-item" >
+              <a class="nav-link" href="/user/{{$user1->user_id}}/edit">Complete/Edit Profile</a>
+            </li>
+            <li class="nav-item" >
+              <a  class="nav-link" href="/user/{{$user1->user_id}}">View Profile</a>
+            </li>
+            @if($user1->status==1)
+            <li class="nav-item"  id="3">
+                <a  class="nav-link" href="/user/show">Generate Results</a>
+            </li>
+            {!! Form::open(['action' => ['TeacherController@show_list',$user1->user_id],'method' => 'GET']) !!}
+            <li class="nav-item"  id="4">
+            <a  class="nav-link" href="/teacher/{{$user1->user_id}}">Pending Request</a>
+            </li>
+            {!! Form::close() !!}
+            @else
+            <li id="1" class="nav-item" >
+                <a   class="nav-link" href="/class/{{$user1->user_id}}">Class Election</a>
+              </li>
+              <li  id="2" class="nav-item" >
+                <a class="nav-link" href="#">College Election</a>
+              </li>
+            @endif
+        </ul>
     </nav>
     
     <main style="display:block" class="py-4"> 
@@ -72,6 +84,6 @@
         @yield('content')
     </div> --}} 
     </main>
-    
+
 </body>
 </html>
