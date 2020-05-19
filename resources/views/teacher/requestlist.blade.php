@@ -25,7 +25,7 @@
     </head>
     <body>
     
-    
+        {{-- @include('inc.messages') --}}
         <table class="table table-dark">
             <thead>
               <tr>
@@ -50,7 +50,7 @@
                         <td>{{$student->user_name}}</td>
                         <td>{{$student->coun_name}}</td>
                         <td>
-                         {!! Form::open(['action' => ['TeacherController@update',$student->nomclass_id],'method' => 'POST']) !!} 
+                         {!! Form::open(['action' => ['TeacherController@show_list',$student->nomclass_id],'method' => 'GET']) !!} 
 
                                 <div class="form-group" style="display:none">
                                 {{-- <label for="user_name">ID</label> --}}

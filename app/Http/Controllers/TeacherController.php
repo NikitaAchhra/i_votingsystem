@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Teacher;
+use App\NomClass;
 use DB;
 
 class TeacherController extends Controller
@@ -89,12 +90,18 @@ class TeacherController extends Controller
 
     public function show_list(Request $request,$id){
 
-        $user=User::where('user_id',$id)->first();
-        $teacher=Teacher::where('user_id_fk',$id)->first();
-        $class=$teacher->class_id_fk;
+        if($request->has('decline')){
+
+
+            $deleted = DB::delete('delete from nom_classes where nomclass_id=:id',['id'=>$id]);
+            
+            $user=User::where('user_id',$request->input('user_id'))->first();
+            $teacher=Teacher::where('user_id_fk',$user->user_id)->first();
+            $class=$teacher->class_id_fk;
 
 
         
+            
             $final=DB::table('nom_classes')
             ->join('councils','coun_id_fk','=','coun_id')
             ->join('students', 'stud_id_fk', '=', 'stud_id')
@@ -102,9 +109,32 @@ class TeacherController extends Controller
             ->select('nomclass_id', 'stud_id', 'user_id', 'user_name', 'user_gender', 'user_pic', 'coun_id', 'coun_name')
             ->where('nom_classes.class_id_fk',$class)
             ->get();
+            return view('teacher/requestlist')->with('token',[$final,$user])->with('success','Request Successfully Decline.');
+        
+        }    
+
+
+
+
+        $user=User::where('user_id',$id)->first();
+        $teacher=Teacher::where('user_id_fk',$id)->first();
+        $class=$teacher->class_id_fk;
+
+
+        
             
+            $final=DB::table('nom_classes')
+            ->join('councils','coun_id_fk','=','coun_id')
+            ->join('students', 'stud_id_fk', '=', 'stud_id')
+            ->join('users', 'user_id_fk', '=', 'user_id')
+            ->select('nomclass_id', 'stud_id', 'user_id', 'user_name', 'user_gender', 'user_pic', 'coun_id', 'coun_name')
+            ->where('nom_classes.class_id_fk',$class)
+            ->get();
             return view('teacher/requestlist')->with('token',[$final,$user]);
         
-    
+
+            
 }
+
+  
 }
