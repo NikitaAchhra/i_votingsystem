@@ -39,9 +39,12 @@
               <a  class="nav-link" href="/user/{{$user1->user_id}}">View Profile</a>
             </li>
             @if($user1->status==1)
-            <li class="nav-item"  id="3">
-                <a  class="nav-link" href="/user/show">Generate Results</a>
+            {!! Form::open(['action' => ['TeacherController@get_list',$user1->user_id],'method' => 'GET']) !!}
+            <li class="nav-item"  id="4">
+            <a  class="nav-link" href="/teacher/{{$user1->user_id}}/selected">Generate Results</a>
             </li>
+            {!! Form::close() !!}
+
             {!! Form::open(['action' => ['TeacherController@show_list',$user1->user_id],'method' => 'GET']) !!}
             <li class="nav-item"  id="4">
             <a  class="nav-link" href="/teacher/{{$user1->user_id}}">Pending Request</a>

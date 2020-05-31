@@ -34,3 +34,4 @@ Route::resource('admin','AdminController');
 
 // Route::resource('teacher','TeacherController');
 Route::get('teacher/{id}','TeacherController@show_list');
+Route::get('teacher/{id}/selected','TeacherController@get_list');

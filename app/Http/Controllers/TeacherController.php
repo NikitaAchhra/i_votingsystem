@@ -88,6 +88,27 @@ class TeacherController extends Controller
 //         //
 //     }
 
+    public function get_list($id)
+    {
+        $user=User::where('user_id',$id)->first();
+            $teacher=Teacher::where('user_id_fk',$id)->first();
+            $class=$teacher->class_id_fk;
+
+        //     $selected=DB::table('nom_classes')
+        //     ->join('councils','coun_id_fk','=','coun_id')
+        //     ->join('students', 'stud_id_fk', '=', 'stud_id')
+        //     ->join('users', 'user_id_fk', '=', 'user_id')
+        //     ->select('nomclass_id', 'stud_id', 'user_id', 'user_name','user_gender', 'coun_id', 'coun_name','votes')
+        //     ->where('nom_classes.class_id_fk',$class)
+        //     ->groupBy('nom_classes.coun_id_fk')
+        //     ->get();
+            
+        //    $name=$selected[0]->user_name;
+        //    echo $name;
+        return view('teacher/winner')->with('class',$class);
+    }
+
+
     public function show_list(Request $request,$id){
 
         if($request->has('decline')){
